@@ -11,9 +11,9 @@ import java.math.BigInteger;
 
 /**
  *
- * Simulation of the pen game for a maximum number of 15 pens
- * Non-algorithmic solution that is not hardware efficient
- * Returns all possible endings with resulting winner
+ * Simulation of the pen game
+ * WARNING! Non-algorithmic solution that is not hardware efficient
+ * Returns all possible endings with the resulting winner
  *
  * @version 1.0, 29.11.2021
  * @https://github.com/mytsdev 
@@ -33,7 +33,7 @@ public class PGSimulatorBigInteger extends JFrame {
     super();
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     int frameWidth = 400; 
-    int frameHeight = 492;
+    int frameHeight = 500;
     setSize(frameWidth, frameHeight);
     Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (d.width - getSize().width) / 2;
@@ -80,48 +80,46 @@ public class PGSimulatorBigInteger extends JFrame {
   
   void calculate(){
     int num = nfInput.getInt();
-    if (num <= 15) {
-      int count = num;
-      int x = 0;
-      int y = 0;
-      int z = 1;
-      int posSolutions = 0;
-      for (int i = 0; i < num; i++) {
-        posSolutions = z + y + x;
-        x = y;
-        y = z;
-        z = posSolutions;
-      } // end of for                  
-      lAmount.setText(posSolutions + "");
-      Random rndm = new Random();
-      HashSet<BigInteger> hsSolutions = new HashSet();
-      taOutput.setText("");
-      while (hsSolutions.size() < posSolutions) { 
-        String moves = "";
-        int tCount = count;
-        while (tCount > 0) { 
-          do {
-            num = rndm.nextInt(3) + 1;
-          } while (num > count); // end of do-while
-          tCount -= num;
-          moves += num;
-          if (tCount == 0) {
-            BigInteger biNum = new BigInteger(moves);
-            hsSolutions.add(biNum);
-          } // end of if
-        } // end of while
+    int count = num;
+    int x = 0;
+    int y = 0;
+    int z = 1;
+    int posSolutions = 0;
+    for (int i = 0; i < num; i++) {
+      posSolutions = z + y + x;
+      x = y;
+      y = z;
+      z = posSolutions;
+    } // end of for                  
+    lAmount.setText(posSolutions + "");
+    Random rndm = new Random();
+    HashSet<BigInteger> hsSolutions = new HashSet();
+    taOutput.setText("");
+    while (hsSolutions.size() < posSolutions) { 
+      String moves = "";
+      int tCount = count;
+      while (tCount > 0) { 
+        do {
+          num = rndm.nextInt(3) + 1;
+        } while (num > count); // end of do-while
+        tCount -= num;
+        moves += num;
+        if (tCount == 0) {
+          BigInteger biNum = new BigInteger(moves);
+          hsSolutions.add(biNum);
+        } // end of if
       } // end of while
-      List<BigInteger> listSolutions = new ArrayList<>(hsSolutions);
-      Collections.sort(listSolutions);
-      BigInteger[] arrSolutions = listSolutions.toArray(new BigInteger[0]);
-      for (int i = 0; i < arrSolutions.length; i++) {
-        if (arrSolutions[i].toString().length() % 2 == 0) {
-          taOutput.append("Winner: Player 1 Moves: " + arrSolutions[i] + "\n");
-        } else {
-          taOutput.append("Winner: Player 2 Moves: " + arrSolutions[i] + "\n");
-        } // end of if-else
-      } // end of for
-    }
+    } // end of while
+    List<BigInteger> listSolutions = new ArrayList<>(hsSolutions);
+    Collections.sort(listSolutions);
+    BigInteger[] arrSolutions = listSolutions.toArray(new BigInteger[0]);
+    for (int i = 0; i < arrSolutions.length; i++) {
+      if (arrSolutions[i].toString().length() % 2 == 0) {
+        taOutput.append("Winner: Player 1 Moves: " + arrSolutions[i] + "\n");
+      } else {
+        taOutput.append("Winner: Player 2 Moves: " + arrSolutions[i] + "\n");
+      } // end of if-else
+    } // end of for
   }
   // Ende Methoden
 } // end of class PGSimulatorBigInteger
