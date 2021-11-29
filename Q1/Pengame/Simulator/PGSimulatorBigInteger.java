@@ -2,11 +2,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
-import java.util.HashSet;
+import java.util.*;
+import java.util.TreeSet;
 import java.math.BigInteger;
 
 /**
@@ -84,42 +81,42 @@ public class PGSimulatorBigInteger extends JFrame {
     int x = 0;
     int y = 0;
     int z = 1;
-    int posSolutions = 0;
+    int posEndings = 0;
     for (int i = 0; i < num; i++) {
-      posSolutions = z + y + x;
+      posEndings = z + y + x;
       x = y;
       y = z;
-      z = posSolutions;
+      z = posEndings;
     } // end of for                  
-    lAmount.setText(posSolutions + "");
-    Random rndm = new Random();
-    HashSet<BigInteger> hsSolutions = new HashSet();
+    lAmount.setText(posEndings + "");
     taOutput.setText("");
-    while (hsSolutions.size() < posSolutions) { 
-      String moves = "";
+    Random rndm = new Random();
+    TreeSet<BigInteger> tsEndings = new TreeSet();
+    while (tsEndings.size() < posEndings) { 
+      String specificEnding = "";
       int tCount = count;
       while (tCount > 0) { 
         do {
           num = rndm.nextInt(3) + 1;
         } while (num > count); // end of do-while
         tCount -= num;
-        moves += num;
+        specificEnding += num;
         if (tCount == 0) {
-          BigInteger biNum = new BigInteger(moves);
-          hsSolutions.add(biNum);
+          BigInteger biSpecificEnding = new BigInteger(specificEnding);
+          tsEndings.add(biSpecificEnding);
         } // end of if
       } // end of while
     } // end of while
-    List<BigInteger> listSolutions = new ArrayList<>(hsSolutions);
-    Collections.sort(listSolutions);
-    BigInteger[] arrSolutions = listSolutions.toArray(new BigInteger[0]);
-    for (int i = 0; i < arrSolutions.length; i++) {
-      if (arrSolutions[i].toString().length() % 2 == 0) {
-        taOutput.append("Winner: Player 1 Moves: " + arrSolutions[i] + "\n");
-      } else {
-        taOutput.append("Winner: Player 2 Moves: " + arrSolutions[i] + "\n");
+    Iterator i = tsEndings.iterator();
+    while (i.hasNext()) { 
+      BigInteger ending = (BigInteger)i.next();
+      if (ending.toString().length() % 2 == 0) {
+        taOutput.append("Winner: Player 1 Ending: " + ending + "\n");
+      } // end of if
+      else {
+        taOutput.append("Winner: Player 2 Ending: " + ending + "\n");
       } // end of if-else
-    } // end of for
+    } // end of while
   }
   // Ende Methoden
 } // end of class PGSimulatorBigInteger
