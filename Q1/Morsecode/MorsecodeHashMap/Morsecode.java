@@ -130,11 +130,13 @@ public class Morsecode extends JFrame {
     dictionary.put('x', "-..-");
     dictionary.put('y', "-.--");
     dictionary.put('z', "--..");
+    
     //Extended-Alphabet
     dictionary.put('ä', ".-.-");
     dictionary.put('ö', "---.");
     dictionary.put('ü', "..--");
     dictionary.put('ß', "......");
+    
     //Numbers
     dictionary.put('1', ".----");
     dictionary.put('2', "..---");
