@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 /**
  * @version 1.0, 30.11.2021
- * @https://github.com/mytsdev
+ * @author https://github.com/mytsdev
  */
 
 public class Morsecode extends JFrame {
@@ -74,6 +74,7 @@ public class Morsecode extends JFrame {
     // Ende Komponenten
     
     createDictionary();
+    
     setVisible(true);
   } // end of public Morsecode
   
@@ -83,23 +84,27 @@ public class Morsecode extends JFrame {
     new Morsecode();
   } // end of main
   
-  void encode(String input, JTextArea output){
+  String encode(String input)
+  {
+    String output = "";
     if (!input.equals("")) {
-      output.setText("");
       for (int i = 0; i < input.length(); i++) {
-        output.append(dictionary.get(input.toLowerCase().charAt(i)) + " ");
-      } // end of for
-    } // end of if
+        output += dictionary.get(input.toLowerCase().charAt(i)) + " ";
+      }  
+    }
+    return output;
   }
   
-  void decode(String input, JTextArea output){
+  String decode(String input)
+  {
+    String output = "";
     if (!input.equals("")) {
-      output.setText(""); 
       String[] inputSplit = input.split(" ");
       for (int i = 0; i < inputSplit.length; i++) {
-        output.append(dictionaryInverse.get(inputSplit[i]) + "");
+        output += dictionaryInverse.get(inputSplit[i]);
       }
-    } // end of if   
+    }
+    return output;
   }
   
   void createDictionary(){
@@ -132,10 +137,10 @@ public class Morsecode extends JFrame {
     dictionary.put('z', "--..");
     
     //Extended-Alphabet
-    dictionary.put('ä', ".-.-");
-    dictionary.put('ö', "---.");
-    dictionary.put('ü', "..--");
-    dictionary.put('ß', "......");
+    dictionary.put('ï¿½', ".-.-");
+    dictionary.put('ï¿½', "---.");
+    dictionary.put('ï¿½', "..--");
+    dictionary.put('ï¿½', "......");
     
     //Numbers
     dictionary.put('1', ".----");
@@ -168,8 +173,8 @@ public class Morsecode extends JFrame {
     dictionary.put('"', ".-..-.");
     dictionary.put('$', "...-..-");
     dictionary.put('@', ".--.-.");
-    dictionary.put('¿', "..-.-");
-    dictionary.put('¡', "--...-");
+    dictionary.put('ï¿½', "..-.-");
+    dictionary.put('ï¿½', "--...-");
     
     dictionary.put(' ', "/");
     
@@ -179,11 +184,11 @@ public class Morsecode extends JFrame {
   }
   
   public void bEncode_ActionPerformed(ActionEvent evt) {
-    encode(taWords.getText(), taMorse);
+    taMorse.setText(encode(taWords.getText()));
   } // end of bEncode_ActionPerformed
   
   public void bDecode_ActionPerformed(ActionEvent evt) {
-    decode(taMorse.getText(), taWords);
+    taWords.setText(decode(taMorse.getText()));
   } // end of bDecode_ActionPerformed
 
   public void bClear_ActionPerformed(ActionEvent evt) {

@@ -8,6 +8,11 @@ import javax.swing.*;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+/** 
+ *   @version 1.0, 05.12.2021 
+ *   @author https://github.com/mytsdev
+ */
+
 public class Morsecode extends JFrame{
     BiMap<Character, String> dictionary = HashBiMap.create();
 
@@ -78,12 +83,12 @@ public class Morsecode extends JFrame{
 
     public void bEncode_ActionPerformed(ActionEvent evt) 
     {
-        encode(taWords.getText(), taMorse);
+        taMorse.setText(encode(taWords.getText()));
     }
 
     public void bDecode_ActionPerformed(ActionEvent evt)
     {
-        decode(taMorse.getText(), taWords);
+        taWords.setText(decode(taMorse.getText()));
     }
 
     public void bClear_ActionPerformed(ActionEvent evt)
@@ -92,25 +97,27 @@ public class Morsecode extends JFrame{
         taMorse.setText("");
     }
 
-    void encode(String input, JTextArea output)
+    String encode(String input)
     {
+        String output = "";
         if (!input.equals("")) {
-            output.setText("");
             for (int i = 0; i < input.length(); i++) {
-                output.append(dictionary.get(input.toLowerCase().charAt(i)) + " ");    
+                output += dictionary.get(input.toLowerCase().charAt(i)) + " ";
             }    
         }
+        return output;
     }
 
-    void decode(String input, JTextArea output)
+    String decode(String input)
     {
+        String output = "";
         if (!input.equals("")) {
-            output.setText("");
             String[] inputSplit = input.split(" ");
             for (int i = 0; i < inputSplit.length; i++) {
-                output.append(dictionary.inverse().get(inputSplit[i]) + "");    
+                output += dictionary.inverse().get(inputSplit[i]);
             }    
         }
+        return output;
     }
 
     void createDictionary()

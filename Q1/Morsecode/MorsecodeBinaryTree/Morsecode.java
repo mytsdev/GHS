@@ -4,11 +4,8 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 /**
- *
- * Beschreibung
- *
- * @version 1.0 vom 04.12.2021
- * @author 
+ * @version 1.0, 04.12.2021
+ * @author https://github.com/mytsdev 
  */
 
 public class Morsecode extends JFrame {
